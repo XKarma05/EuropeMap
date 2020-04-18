@@ -21,26 +21,35 @@ public class Main extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("Leave a feedback");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
+        
+        StackPane root = new StackPane();
+        Scene mainScene = new Scene(root, 300, 250);
+        
+        Button btn1 = new Button("Go to Feedback Scene");
+        btn1.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("ouioui");
                 Feedback fb = new Feedback();
-                fb.feedback("a");
+                fb.start(primaryStage);
             }
         });
-        
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        
-        Scene scene = new Scene(root, 300, 250);
-        
-        primaryStage.setTitle("Hello World!");
-        primaryStage.setScene(scene);
+		
+	Button btn2 = new Button("Go back to Main Scene");
+        btn2.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+		primaryStage.setScene(mainScene);
+                primaryStage.setTitle("Feedback");
+            }
+        });
+		
+        primaryStage.setTitle("Menu");
+        primaryStage.setScene(mainScene);
         primaryStage.show();
+        
+        root.getChildren().add(btn1);
     }
 
     /**

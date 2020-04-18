@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.FileWriter;
@@ -31,15 +32,12 @@ public class Feedback extends Application {
         
         String comment;
         
-        FlowPane pane = new FlowPane();
+        VBox pane = new VBox();
         pane.setPadding(new Insets(10, 10, 300, 10));
-        pane.setHgap(5);
-        pane.setVgap(5);
         
         TextField TF = new TextField();
         
         pane.getChildren().addAll(new Label("Leave a feedback: "), TF);
-        
         
         Scene scene = new Scene(pane, 300, 250);
         
@@ -56,9 +54,10 @@ public class Feedback extends Application {
             public void handle(ActionEvent event) {
                 System.out.println("Submitted");
                 feedback(TF.getText());
-            }
-            
+            }        
         });
+        
+        pane.getChildren().add(btn);
     }
     
     public static void feedback(String feedback)
