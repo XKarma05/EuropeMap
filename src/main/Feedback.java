@@ -21,6 +21,8 @@ import javafx.stage.Stage;
 
 import java.io.FileWriter;
 
+import java.io.IOException;
+
 /**
  *
  * @author Hippolyte
@@ -29,8 +31,7 @@ public class Feedback extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        
-        String comment;
+
         
         VBox pane = new VBox();
         pane.setPadding(new Insets(10, 10, 300, 10));
@@ -41,14 +42,14 @@ public class Feedback extends Application {
         
         Scene scene = new Scene(pane, 300, 250);
         
-        primaryStage.setTitle("ShowFlowPane");
+        primaryStage.setTitle("Feedback");
         primaryStage.setScene(scene);
         primaryStage.show();
         
 
-        Button btn = new Button();
-        btn.setText("Submit");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
+        Button submitBtn = new Button();
+        submitBtn.setText("Submit");
+        submitBtn.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
@@ -57,25 +58,33 @@ public class Feedback extends Application {
             }        
         });
         
-        pane.getChildren().add(btn);
+        Button mainBtn = new Button("Go back to Main Scene");
+        mainBtn.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                Main m = new Main();
+		m.start(primaryStage);
+            }
+        });
+        
+        pane.getChildren().add(submitBtn);
+        pane.getChildren().add(mainBtn);
     }
     
     public static void feedback(String feedback)
     {
         System.out.println(feedback);
-        File fichier = new File("feedback.txt"); 
+
         try {
-            // Creation du fichier
-            fichier .createNewFile();
-            // creation d'un writer (un écrivain)
-            FileWriter writer = new FileWriter(fichier);
+            FileWriter fichier = new FileWriter("feedback.txt", true); 
             try {
-                writer.write(feedback);
+                fichier.write(feedback + "\n");
             } finally {
                 // quoiqu'il arrive, on ferme le fichier
-                writer.close();
+                fichier.close();
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Impossible de creer le fichier");
         }
     }

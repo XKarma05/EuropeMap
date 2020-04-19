@@ -11,6 +11,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
 /**
@@ -22,7 +23,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         
-        StackPane root = new StackPane();
+        FlowPane root = new FlowPane();
         Scene mainScene = new Scene(root, 300, 250);
         
         Button btn1 = new Button("Go to Feedback Scene");
@@ -34,14 +35,14 @@ public class Main extends Application {
                 fb.start(primaryStage);
             }
         });
-		
-	Button btn2 = new Button("Go back to Main Scene");
+        
+        Button btn2 = new Button("Go to Map Scene");
         btn2.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
-		primaryStage.setScene(mainScene);
-                primaryStage.setTitle("Feedback");
+                map mp = new map();
+                mp.start(primaryStage);
             }
         });
 		
@@ -50,6 +51,7 @@ public class Main extends Application {
         primaryStage.show();
         
         root.getChildren().add(btn1);
+        root.getChildren().add(btn2);
     }
 
     /**
