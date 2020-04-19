@@ -8,9 +8,10 @@ package main;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
@@ -23,16 +24,28 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         
-        FlowPane root = new FlowPane();
+        VBox root = new VBox();
+        root.setAlignment(Pos.CENTER);
+        
         Scene mainScene = new Scene(root, 300, 250);
         
-        Button btn1 = new Button("Go to Feedback Scene");
-        btn1.setOnAction(new EventHandler<ActionEvent>() {
+        Button submitBtn = new Button("Go to Feedback Scene");
+        submitBtn.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
                 Feedback fb = new Feedback();
                 fb.start(primaryStage);
+            }
+        });
+        
+        Button loginBtn = new Button("Go to Login Scene");
+        loginBtn.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                User ur = new User();
+                ur.start(primaryStage);
             }
         });
         
@@ -50,7 +63,8 @@ public class Main extends Application {
         primaryStage.setScene(mainScene);
         primaryStage.show();
         
-        root.getChildren().add(btn1);
+        root.getChildren().add(submitBtn);
+        root.getChildren().add(loginBtn);
         root.getChildren().add(btn2);
     }
 
