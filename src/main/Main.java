@@ -12,8 +12,15 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+
+import javafx.scene.paint.Color; 
+import javafx.stage.Stage; 
+import javafx.scene.shape.Circle; 
+import javafx.scene.text.Font; 
+import javafx.scene.text.Text; 
 
 /**
  *
@@ -25,10 +32,38 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         
         VBox root = new VBox();
-        root.setAlignment(Pos.CENTER);
+        root.setAlignment(Pos. CENTER);
         
-        Scene mainScene = new Scene(root, 300, 250);
+        Scene mainScene = new Scene(root, 400, 400);
         
+        StackPane sp = new StackPane();
+        StackPane sp1 = new StackPane();
+        /*
+        Circle circle = new Circle();    
+      
+        circle.setCenterX(300.0f); 
+        circle.setCenterY(180.0f); 
+        circle.setRadius(90.0f); 
+
+        circle.setFill(Color.DARKRED);    
+ 
+        circle.setStrokeWidth(3); 
+ 
+        circle.setStroke(Color.DARKSLATEBLUE);
+*/
+        Text text = new Text("Welcome to EuropeMap"); 
+
+        text.setFont(Font.font("Edwardian Script ITC", 50)); 
+
+        //Setting the position of the text 
+        text.setX(155); 
+        text.setY(50); 
+
+        //Setting color to the text 
+        text.setFill(Color.BEIGE); 
+        text.setStrokeWidth(2); 
+        text.setStroke(Color.DARKSLATEBLUE); 
+      
         Button submitBtn = new Button("Go to Feedback Scene");
         submitBtn.setOnAction(new EventHandler<ActionEvent>() {
             
@@ -39,7 +74,7 @@ public class Main extends Application {
             }
         });
         
-        Button loginBtn = new Button("Go to Login Scene");
+        Button loginBtn = new Button("Go to Log in Scene");
         loginBtn.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
@@ -49,8 +84,18 @@ public class Main extends Application {
             }
         });
         
-        Button btn2 = new Button("Go to Map Scene");
-        btn2.setOnAction(new EventHandler<ActionEvent>() {
+        Button signupBtn = new Button("Go to Sign up Scene");
+        signupBtn.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                Register rg = new Register();
+                rg.start(primaryStage);
+            }
+        });
+        
+        Button mapBtn = new Button("Go to Map Scene");
+        mapBtn.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
@@ -58,14 +103,14 @@ public class Main extends Application {
                 mp.start(primaryStage);
             }
         });
-		
+       
+        root.getChildren().addAll(text, loginBtn, signupBtn, submitBtn);
+
+                
+       
         primaryStage.setTitle("Menu");
         primaryStage.setScene(mainScene);
         primaryStage.show();
-        
-        root.getChildren().add(submitBtn);
-        root.getChildren().add(loginBtn);
-        root.getChildren().add(btn2);
     }
 
     /**

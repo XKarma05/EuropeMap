@@ -5,6 +5,8 @@
  */
 package main;
 
+import java.util.Scanner;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,6 +20,12 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import static main.Feedback.feedback;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+
+import javafx.scene.control.PasswordField;
 
 /**
  *
@@ -33,17 +41,27 @@ public class User extends Application {
         pane.setAlignment(Pos.CENTER);
         
         TextField TFusername = new TextField();
-        TextField TFpassword = new TextField();
+        PasswordField  TFpassword = new PasswordField();
         
         pane.getChildren().addAll(new Label("username: "), TFusername);
         pane.getChildren().addAll(new Label("password: "), TFpassword);
         
-        Scene scene = new Scene(pane, 300, 250);
+        Scene scene = new Scene(pane, 400, 400);
         
         primaryStage.setTitle("Log in");
         primaryStage.setScene(scene);
         primaryStage.show();
         
+        Button mapBtn = new Button();
+        mapBtn.setText("Go to the Map");
+        mapBtn.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                map mp = new map();
+                mp.start(primaryStage);
+            }        
+        });
 
         Button loginBtn = new Button();
         loginBtn.setText("Log in");
@@ -51,7 +69,11 @@ public class User extends Application {
             
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Submitted");
+                System.out.println("Checking..");
+                if(checkin(TFusername.getText(), TFpassword.getText()) == 1)
+                {
+                    pane.getChildren().add(mapBtn);
+                }
             }        
         });
         
@@ -69,8 +91,52 @@ public class User extends Application {
         pane.getChildren().add(mainBtn);
     }
     
-    public static void checkin(){
-        
+    public static int checkin(String username, String password){
+        BufferedReader br = null;
+  
+        try{
+            File file = new File("usersData.txt");
+            
+            //create BufferedReader object from the File
+            br = new BufferedReader(new FileReader(file) );
+            
+            Scanner input = new Scanner(br);
+            try
+            {
+                while(!input.next().equals(username))
+                {
+                    
+                }
+            }
+            catch(Exception e){
+                System.out.println("incorrect username");
+            }
+            
+            if(input.next().equals(password))
+                    {
+                        System.out.println("Access granted");
+                        return 1;
+                    }
+                    else
+                    {
+                        System.out.println(input.next() + "et" + password);
+                        System.out.println("Access denied");
+                        return 0;
+                    }
+            
+                        
+        }catch(Exception e){
+            e.printStackTrace();
+            System.out.println("Impossible d'ouvrir le fichier");
+        }finally{
+            if(br != null){
+                try { 
+                    br.close(); 
+                }catch(Exception e){};
+                System.out.println("fermeture impossible");
+            }
+        }  
+        return -1;
     }
-    
 }
+   

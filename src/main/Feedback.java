@@ -40,7 +40,7 @@ public class Feedback extends Application {
         
         pane.getChildren().addAll(new Label("Leave a feedback: "), TF);
         
-        Scene scene = new Scene(pane, 300, 250);
+        Scene scene = new Scene(pane, 400, 400);
         
         primaryStage.setTitle("Feedback");
         primaryStage.setScene(scene);
